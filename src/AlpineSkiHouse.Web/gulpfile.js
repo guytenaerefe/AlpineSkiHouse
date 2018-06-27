@@ -25,8 +25,6 @@ var paths = {
     minJs: webroot + "js/**/*.min.js",
     sass: "style/**/bootstrap-alpine.scss",
     sassDest: webroot + "css",
-    images: ["images/**/*.jpg", "images/**/*.jpeg", "images/**/*.png"],
-    imagesDest: webroot + "images",
     css: webroot + "css/**/*.css",
     minCss: webroot + "css/**/*.min.css",
     concatJsDest: webroot + "js/site.min.js",
@@ -82,16 +80,6 @@ gulp.task("sass", function(){
         .pipe(gulp.dest(paths.sassDest));
 });
 
-gulp.task("images", function()
-{
-    return gulp.src(paths.images)
-        .pipe(imageop({
-            optimizationLevel: 5,
-            progressive: true,
-            interlaced: true
-        })).pipe(gulp.dest(paths.imagesDest));
-});
-
 gulp.task("min:css", function () {
     return gulp.src([paths.css, "!" + paths.minCss])
         .pipe(concat(paths.concatCssDest))
@@ -101,7 +89,7 @@ gulp.task("min:css", function () {
 
 gulp.task("min", ["min:js", "min:css"]);
 
-gulp.task("default", ["stage-loader", "typescript", "sass", "images"]);
+gulp.task("default", ["stage-loader", "typescript", "sass"]);
 
 gulp.task("watch", ["default"], function () {
     gulp.watch("style/**/*.s*ss", ["sass"]);
